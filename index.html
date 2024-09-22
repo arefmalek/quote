@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Quotes I like</title>
+    </head>
+    <body>
+        <ul id="myList"></ul>
+        <script>
+            const url =
+                "https://quotes-api-cool-resonance-7537.fly.dev/quotes_list";
+
+            fetch(url)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Something went wrong!");
+                    }
+                })
+                .then((res) => {
+                    // do something with the data sent in the request
+                    for (var i = 0; i < res.data.length; i++) {
+                        const element = res.data[i];
+                        const node = document.createElement("li");
+                        // Create a text node:
+                        const textnode = document.createTextNode(
+                            `"${element[1]}" - ${element[2]}, ${element[3]}`
+                        );
+                        // Append the text node to the "li" node:
+                        node.appendChild(textnode);
+
+                        document.getElementById("myList").appendChild(node);
+                    }
+                });
+        </script>
+    </body>
+</html>
